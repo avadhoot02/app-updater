@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Updates</title>
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome icons -->
+ 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+         .container {
+   	   max-width: 1000px;
+    	   padding: 15px;
+	}    
+
+    .h1, h1{
+        font-size: 1.2rem;
+    }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+           
+            color: black; /* Blue */
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+            padding: 10px;
+            text-align: center;
+            
+            border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+            background-color: #6ddfc6;
+            border: black;
+}
+        }
+        .card-body {
+            text-align: center;
+        }
+       .update-btn {
+    
+             margin-top: 10px;
+             background-color: #11b0fc;
+             color: #fff;
+             border-color: #fca311;
+             margin: 4px;
+        } 
+        .update-btn:hover {
+            background-color: #e85d04; /* Darker orange on hover */
+            border-color: #e85d04; /* Darker orange on hover */
+        }
+        .progress-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            background-color: #fca311; /* Light orange */
+        }
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .icon {
+            font-size: 35px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .icon-chrome {
+                color: #0010cc;
+        }
+        .icon-firefox {
+                color: #0010cc;
+        }
+        .updater-title {
+           text-align: center;
+           font-size: 24px;
+           font-weight: bold;
+           margin-bottom: 20px;
+           background-color: #FFC107;
+           border: black;
+           border-radius: initial;
+        }
+      .card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    background-color: #6ddfc6;
+    border: black;
+}
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="updater-title">Application Updater Interface </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"><i class="icon icon-chrome fab fa-chrome"></i> Update Google Chrome</div>
+                    <div class="card-body">
+                        <button id="update-chrome" class="btn btn-primary update-btn">Update</button>
+                        <div class="progress-container mt-3" style="display: none;">
+                            <div id="chrome-progress" class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <pre id="chrome-output"></pre>
+			<a button href="http://192.168.1.196/chrome-releases/" id="download-chrome" class="btn btn-primary update-btn">Download</button> </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"><i class="icon icon-firefox fab fa-firefox"></i> Update Mozilla Firefox</div>
+                    <div class="card-body">
+                        <button id="update-firefox" class="btn btn-primary update-btn">Update</button>
+                        <div class="progress-container mt-3" style="display: none;">
+                            <div id="firefox-progress" class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <pre id="firefox-output"></pre>
+			<a  <button href="http://192.168.1.196/firefox-releases/" id="download-firefox" class="btn btn-primary update-btn">Download</button> </a>
+
+                    </div>
+                </div>
+            </div>
+	 <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-citrix"></i>Update Vmware </div>
+                    <div class="card-body">
+                        <button id="update-vmware" class="btn btn-primary update-btn">Update</button>
+                        <div class="progress-container mt-3" style="display: none;">
+                            <div id="vmware-progress" class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <pre id="vmware-output"></pre>
+                        <a  <button href="http://192.168.1.196/vmware-releases/" id="download-vmware" class="btn btn-primary update-btn">Download</button> </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-citrix"></i>Update Citrix</div>
+                    <div class="card-body">
+                        <!-- <button id="update-ctx" class="btn btn-primary update-btn">Update</button> <br>  -->
+                        <h1>Please Select Required Debian Packages To Update Citrix App</h1>
+                        <!-- <label for="vmware-url">VMware Package Url:</label> <br>
+                        <input type="text" id="vmware-url" name="vmware-url"><br>
+                        <label for="usb-url">USB Package Url:</label> <br>
+                        <input type="text" id="usb-url" name="usb-url"><br> -->
+                        <label for="ctx-path">Select Latest icaclient .deb package from ~/Downloads/ :</label>
+                        <input type="file" id="ctx-path" accept=".deb" onchange="displayFilePath(ic_file,ic_path)">
+                        <br>
+                        <input type="text" id="s1" readonly > <br>
+                        <label for="ctx-path">Select Latest ctx-usb .deb package from ~/Downloads/ :</label> <br>
+                        <input type="file" id="usb-path" accept=".deb" onchange="displayFilePath(usb_file,usb_path)">
+                        <br>
+                        <input type="text" id="s2" readonly>
+                    
+                        
+                        <button id="update-ctx" class="btn btn-primary update-btn">Update</button> <br> 
+
+                        <div class="progress-container mt-3" style="display: none;">
+                            <div id="ctx-progress" class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <pre id="ctx-output"></pre>
+                        <a  <button href="http://192.168.1.196/citrix-releases/" id="download-ctx" class="btn btn-primary update-btn">Download</button> </a>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+    <!-- jQuery, Bootstrap JS, and SocketIO JS links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    
+    <script>
+
+    const icPathInput = document.getElementById("ctx-path");
+    const usbPathInput = document.getElementById("usb-path");
+    const updateButton = document.getElementById("update-ctx");
+
+    icPathInput.addEventListener("change", updateButtonVisibility);
+    usbPathInput.addEventListener("change", updateButtonVisibility);
+      
+       
+    function updateButtonVisibility() {
+        const icFilePath = icPathInput.value;
+        const usbFilePath = usbPathInput.value;
+       
+        if (icFilePath && usbFilePath) {
+            updateButton.style.display = "block";
+        } else {
+            updateButton.style.display = "none";
+        }
+    }
+
+
+        var ic_file='ctx-path'
+        var ic_path='s1'
+        var usb_file='usb-path'
+        var usb_path='s2'
+
+         function displayFilePath(a,b) {
+            const input = document.getElementById(a);
+            const filePathInput = document.getElementById(b);
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+            
+                const fileName = file.name;
+                const extension = fileName.split('.').pop().toLowerCase();
+                
+                if (extension === 'deb') {
+                    filePathInput.value = fileName;
+                } else {
+                    alert('Please select a .deb file.');
+                    input.value = ''; // Clear the input field
+                    filePathInput.value = ''; // Clear the displayed path
+                }
+            }
+        }
+
+        $(document).ready(function() {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+               
+           
+            
+
+           
+              
+
+            var dch = "download-chrome"
+            var uch="update-chrome"
+            var prech="chrome-output"
+            
+            var dff = "download-firefox"
+            var uff = "update-firefox"
+            var predff="firefox-output"
+            
+            var dctx = "download-ctx"
+            var uctx = "update-ctx"
+            var prectx = "ctx-output"
+
+            var upvm ="update-vmware"
+            var dvm = "download-vmware"
+            var prevm = "vmware-output"
+
+            hideElementById(dff);
+            hideElementById(dch);
+            hideElementById(dvm);
+            hideElementById(dctx);
+
+        // function checkPreTagForSuccessMessage(a,b,c) {
+        // var preTag = document.getElementById(c);
+        // changeInnerHTMLById(b, "Done updating");
+        // showElementById(a);
+        // }
+                              
+          function hideElementById(elementId) {
+		  var element = document.getElementById(elementId);
+ 		  if (element) {
+   			 element.style.display = "none";}
+	           }
+
+		 function changeInnerHTMLById(elementId, newInnerHTML) {
+		  var element = document.getElementById(elementId);
+  			if (element) {
+ 		   element.innerHTML = newInnerHTML;
+                   element.style.backgroundColor = "red";					    
+ 			 }
+			}
+
+		  function showElementById(elementId) {
+ 	          var element = document.getElementById(elementId);
+ 		 if (element) {
+  		  element.style.display = "block"; // or any other suitable display value
+  		    }
+			}
+
+
+            socket.on('chrome_output', function(data) {
+                if (data.output.includes("ok")) {
+                changeInnerHTMLById("update-chrome", "updated");
+	        var element = document.getElementById(uch).style.backgroundColor = "green";;
+
+                showElementById(dch);
+            
+             }
+                $('#chrome-output').append(data.output + '\n');
+               
+            });
+            
+            socket.on('firefox_output', function(data) {
+                if (data.output.includes("0xff")) {
+                changeInnerHTMLById(uff, "updated");
+	        var element = document.getElementById(uff).style.backgroundColor = "green";;
+
+                showElementById(dff);
+            
+            }
+
+                $('#firefox-output').append(data.output + '\n');
+              
+            });
+
+            socket.on('vmware_output', function(data) {
+                if (data.output.includes("ok")) {
+                changeInnerHTMLById(upvm, "updated");
+	        var element = document.getElementById(upvm).style.backgroundColor = "green";;
+
+                showElementById(dvm);
+            
+            }
+
+                $('#vmware-output').append(data.output + '\n');
+              
+            });
+
+             
+            socket.on('ctx_output', function(data) {
+                if (data.output.includes("ok")) {
+                changeInnerHTMLById(uctx, "updated");
+	        var element = document.getElementById(uctx).style.backgroundColor = "green";;
+
+                showElementById(dctx);
+            
+            }
+
+                $('#ctx-output').append(data.output + '\n');
+              
+            });
+
+              
+
+
+
+
+            
+            $('#update-chrome').on('click', function() {
+                $('.progress-container').show();
+		    changeInnerHTMLById("update-chrome", "updating...");
+		hideElementById("download-chrome");
+	        socket.emit('update_chrome');
+            
+            });
+
+            $('#update-firefox').on('click', function() {
+                $('.progress-container').show();
+		     changeInnerHTMLById("update-firefox", "updating...");
+                 hideElementById("download-firefox");
+                socket.emit('update_firefox');
+
+                
+            });
+
+         
+            $('#update-vmware').on('click', function() {
+                $('.progress-container').show();
+		    changeInnerHTMLById(upvm, "updating...");
+                 hideElementById(dvm);
+                socket.emit('update_vmware');
+                
+            });
+              
+          
+            // var ctPath="ctx-path"
+            // var usbPath="usb-path"
+            // var s1='selected-file-path-1'
+            // var s2 = 'selected-file-path-2'
+
+
+    
+        
+            // var vmwareUrl = document.getElementById('vmware-url').value;
+            // var usbUrl = document.getElementById('usb-url').value;
+            var vmwareInput = document.getElementById('s1');
+            var usbInput = document.getElementById('s2');
+            var updateBtn = document.getElementById(uctx);
+            updateBtn.style.display = 'none';             
+
+            // vmwareInput.addEventListener('input', toggleUpdateButton);
+            // usbInput.addEventListener('input', toggleUpdateButton);
+
+            // function toggleUpdateButton() {
+            // if (vmwareInput.value.trim() !== '' && usbInput.value.trim() !== '') {
+            //     // updateBtn.removeAttribute('disabled');
+            //     updateBtn.style.display = 'block';
+            // } else {
+            //     // updateBtn.setAttribute('disabled', true);
+            //     updateBtn.style.display = 'none';
+            //     }
+            //     }
+           
+
+            $('#update-ctx').on('click', function() {
+                $('.progress-container').show();
+		     changeInnerHTMLById(uctx, "updating...");
+                 hideElementById(dctx);
+                // socket.emit('update_ctx');
+            socket.emit('update_ctx', { vmwareUrl: icPathInput.value.split("\\").pop() , usbUrl:  usbPathInput.value.split("\\").pop() });  
+            
+           
+            
+
+            });
+
+
+
+
+
+            
+        });
+    </script>
+</body>
+</html>
+

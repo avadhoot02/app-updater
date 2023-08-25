@@ -1,0 +1,70 @@
+#!/bin/bash
+main_dir="/home/avadhoot/pkgs/citrix/latest-citrix"
+usb_dir="$main_dir/usb"
+conf_file="/home/avadhoot/pkgs/citrix/update.conf"
+
+# ... (other parts of the script)
+
+# Load URLs from update.conf
+if [ -f "$conf_file" ]; then
+    icaclient_url=$(awk -F "=" '/\[citrix\]/{a=1} a==1 && /icaclient_url/{print $2; exit}' "$conf_file")
+    ctxusb_url=$(awk -F "=" '/\[citrix\]/{a=1} a==1 && /ctxusb_url/{print $2; exit}' "$conf_file")
+    echo "$icaclient_url"
+    echo "$ctxusb_url"
+else
+    echo "Error: $conf_file not found"
+    exit 1
+fi
+
+
+# Remove main directory if it exists
+if [ -d "$main_dir" ]; then
+    echo "Removing old dir"
+    rm -r "$main_dir"
+fi
+
+echo "Making working directory"
+# Create main directory
+mkdir -p "$main_dir"
+echo "Making usb directory"
+# Create usb directory within main directory
+mkdir -p "$usb_dir"
+
+cd "$main_dir/"
+
+# Download and extract Citrix packages
+citrix_package() {
+    echo "Downloading and extracting Citrix packages..."
+
+    
+     # Download and extract icaclient package
+    icaclient_file="icaclient.deb"
+    curl -o "$icaclient_file" "$icaclient_url"
+    dpkg-deb -x "$icaclient_file" "$main_dir/"
+
+    # Download and extract ctxusb package
+     # Download and extract ctxusb package
+    ctxusb_file="ctxusb.deb"
+    curl -o "$ctxusb_file" "$ctxusb_url"
+    dpkg-deb -x "$ctxusb_file" "$usb_dir/"
+
+
+    # Move and organize files
+    mv "$usb_dir/etc/init.d/"* "$main_dir/etc/init.d/"
+    mv "$usb_dir/etc/udev" "$main_dir/etc/"
+    mv "$usb_dir/opt/Citrix/ICAClient/"* "$main_dir/opt/Citrix/ICAClient/"
+    mv "$usb_dir/usr/share/doc/"* "$main_dir/usr/share/doc/"
+
+    # Clean up extracted directories
+    rm -r "$usb_dir"
+    rm -r "$main_dir/lib"
+
+    # Clean up downloaded deb files
+    rm "$icaclient_file"
+    rm "$ctxusb_file"
+
+    echo "Done"
+}
+
+# Run the download function
+citrix_package

@@ -1,0 +1,65 @@
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header"><i class="fas fa-citrix"></i>Update Citrix</div>
+        <!-- Show/Hide link -->
+        <div class="toggle-details">
+            <a href="javascript:void(0);" onclick="toggleUpdateDetails('citrix-details',this);">
+                <span id="ctx-show" class="toggle-text">Show</span>
+                <span class="toggle-icon">*</span>
+            </a>
+        </div>
+        <!-- Card body with update details -->
+        <div class="card-body" id="citrix-details" style="display: none;">
+            <!-- Rest of the update details -->
+            <h1>Please Select Required Debian Packages To Update Citrix App</h1>
+            <label for="ctx-path">Select Latest icaclient .deb package from ~/Downloads/ :</label>
+            <input type="file" id="ctx-path" accept=".deb" onchange="displayFilePath(ic_file,ic_path)">
+            <br>
+            <input type="text" id="s1" readonly > <br>
+            <label for="ctx-path">Select Latest ctx-usb .deb package from ~/Downloads/ :</label> <br>
+            <input type="file" id="usb-path" accept=".deb" onchange="displayFilePath(usb_file,usb_path)">
+            <br>
+            <input type="text" id="s2" readonly>
+                    
+            <button id="update-ctx" class="btn btn-primary update-btn">Update</button> <br> 
+
+            <div class="progress-container mt-3" style="display: none;">
+                <div id="ctx-progress" class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <pre id="ctx-output"></pre>
+            <a href="http://192.168.1.196/citrix-releases/" id="download-ctx" class="btn btn-primary update-btn">Download</a>
+        </div>
+    </div>
+</div>
+<script>
+//   Function to toggle the visibility of update details for a specific block
+//   function toggleUpdateDetails(id) {
+//     const details = document.getElementById(id);
+   
+
+//     details.style.display = details.style.display === "none" ? "block" : "none";
+// }
+
+  // Function to toggle the visibility of update details for a specific block
+  function toggleUpdateDetails(id, link) {
+    const details = document.getElementById(id);
+    const linkText = link.querySelector('.toggle-text');
+    const linkIcon = link.querySelector('.toggle-icon');
+    
+    if (details.style.display === 'none') {
+      details.style.display = 'block';
+      linkText.textContent = 'Hide Details';
+      linkIcon.textContent = '✕'; // Cross symbol
+    } else {
+      details.style.display = 'none';
+      linkText.textContent = 'Show Details';
+      linkIcon.textContent = '+'; // Plus symbol
+    }
+  }
+
+
+
+</script>
+
